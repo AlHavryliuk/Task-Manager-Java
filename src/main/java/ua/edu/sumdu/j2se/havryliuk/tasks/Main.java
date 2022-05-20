@@ -19,6 +19,7 @@ public class Main {
 		System.out.println(TestTask1.nextTimeAfter(15));
 		System.out.println(TestTask11.nextTimeAfter(30));
 		System.out.println(TestTask2.nextTimeAfter(30));
+		System.out.println("Share to GitHub");
 	}
 
 }
