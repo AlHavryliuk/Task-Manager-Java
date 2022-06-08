@@ -1,9 +1,8 @@
 package ua.edu.sumdu.j2se.havryliuk.tasks;
 
 
+public class LinkedTaskList extends AbstractTaskList{
 
-
-public class LinkedTaskList {
 
     private Node head;
     private int size;
@@ -17,8 +16,6 @@ public class LinkedTaskList {
             this.element = element;
             this.next = next;
         }
-
-
     }
 
 
@@ -87,25 +84,11 @@ public class LinkedTaskList {
         return count.element;
     }
 
-
-    public LinkedTaskList incoming(int from, int to) {
-
-        LinkedTaskList inCom = new LinkedTaskList();
-        Node currentNode = head;
-        int helpSize = 0;
-
-        while (size < helpSize) {
-            currentNode = currentNode.next;
-            helpSize++;
-        }
-
-        if ((currentNode.element.nextTimeAfter(from) < to
-                && currentNode.element.nextTimeAfter(from) >= from)) {
-            if (!isEmpty()) {
-                inCom.head = currentNode;
-            } else {
-                head = currentNode;
-            }
-        } return inCom;
+    public ListTypes.types getType() {
+        return ListTypes.types.LINKED;
     }
+
+
+
+
 }
