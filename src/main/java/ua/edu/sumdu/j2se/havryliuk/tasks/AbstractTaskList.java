@@ -1,16 +1,20 @@
 package ua.edu.sumdu.j2se.havryliuk.tasks;
 
 
+import java.util.*;
 
-public abstract class AbstractTaskList {
 
+public abstract class AbstractTaskList implements Iterable<Task> {
+
+
+
+    public Iterator <Task> iterator(){
+        return new Itr();
+    }
     public abstract void add (Task task);
-
     public abstract boolean remove (Task task);
-
     public abstract int size ();
-
-    public abstract Task getTask (int index);
+    public abstract Task getTask (int index) throws IndexOutOfBoundsException;
     public abstract ListTypes.types getType();
 
 
@@ -20,12 +24,10 @@ public abstract class AbstractTaskList {
         AbstractTaskList incTask = TaskListFactory.createTaskList(getType());
         {
             for (int i = 0; i < size(); i++) {
-                if (getTask(i) == null) {
-                    continue;
-                }
-                getTask(i).nextTimeAfter(from);
+                if (getTask(i).nextTimeAfter(from) > from
+                    && getTask(i).nextTimeAfter(to) <to)
+                {
 
-                if (from < getTask(i).nextTimeAfter(from) && getTask(i).nextTimeAfter(from) < to) {
                     incTask.add(getTask(i));
                 }
             }
@@ -33,5 +35,65 @@ public abstract class AbstractTaskList {
         }
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        boolean answer = true;
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        AbstractTaskList that = (AbstractTaskList) obj;
+        if (this.size() != that.size()) {
+            return false;
+        }
+        for (int i = 0; i < that.size(); i++) {
+            answer = this.getTask(i).equals(that.getTask(i));
+            if (!answer) {
+                break;
+            }
+        }
+        return answer;
+    }
 
+
+    private class Itr implements Iterator<Task>{
+
+        int cursor = 0;
+        int lastCurs = -1;
+
+
+        @Override
+        public boolean hasNext() {
+            return cursor != size();
+        }
+
+        @Override
+        public Task next() {
+            int i = cursor;
+            if (i >= size()) {
+                throw new NoSuchElementException("Can`t found next task");
+            }
+            Task next = getTask(i);
+            lastCurs =i;
+            cursor = i + 1;
+            return next;
+        }
+
+        @Override
+        public void remove() {
+            if (lastCurs < 0)
+                throw new IllegalStateException();
+
+            try {
+                AbstractTaskList.this.remove(getTask(lastCurs));
+                if (lastCurs < cursor)
+                    cursor--;
+                lastCurs = -1;
+            } catch (IndexOutOfBoundsException e) {
+                throw new ConcurrentModificationException();
+            }
+        }
+    }
 }
