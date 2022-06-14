@@ -1,14 +1,13 @@
 package ua.edu.sumdu.j2se.havryliuk.tasks;
 
 
-public class LinkedTaskList extends AbstractTaskList{
-
+public class LinkedTaskList extends AbstractTaskList implements Cloneable {
 
     private Node head;
     private int size;
 
 
-    private class Node {
+    private static class Node {
         Task element;
         Node next;
 
@@ -17,7 +16,6 @@ public class LinkedTaskList extends AbstractTaskList{
             this.next = next;
         }
     }
-
 
     private boolean isEmpty() {
         return head == null;
@@ -35,10 +33,7 @@ public class LinkedTaskList extends AbstractTaskList{
         }
         head = newNode;
         size++;
-
-
     }
-
 
     public boolean remove(Task task) {
 
@@ -68,7 +63,6 @@ public class LinkedTaskList extends AbstractTaskList{
         return false;
     }
 
-
     public int size() {
         return size;
     }
@@ -89,6 +83,25 @@ public class LinkedTaskList extends AbstractTaskList{
     }
 
 
+    @Override
+    public LinkedTaskList clone() throws CloneNotSupportedException {
+        return (LinkedTaskList)
+                super.clone();
+    }
 
 
+    @Override
+    public int hashCode() {
+        int hashCode = 1;
+        for (Task task : this)
+            hashCode = 31 * hashCode + (task==null ? 0 : task.hashCode());
+        return hashCode;
+    }
+
+
+    @Override
+    public String toString() {
+        return "It`s Linked List includes " + size +
+                " tasks. Last added task is: " + head.element.getTitle();
+    }
 }
