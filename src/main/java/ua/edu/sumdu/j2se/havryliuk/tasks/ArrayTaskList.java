@@ -1,8 +1,9 @@
 package ua.edu.sumdu.j2se.havryliuk.tasks;
 
 
-import java.util.Arrays;
-import java.util.Objects;
+
+import java.util.*;
+import java.util.stream.Stream;
 
 
 public class ArrayTaskList extends AbstractTaskList implements Cloneable {
@@ -70,6 +71,17 @@ public class ArrayTaskList extends AbstractTaskList implements Cloneable {
         return ListTypes.types.ARRAY;
     }
 
+    @Override
+    public Stream<Task> getStream() {
+        Stream.Builder<Task> stream = Stream.builder();
+        for (Task nowTask : this) {
+            if (nowTask == null) {
+                continue;
+            }
+            stream.add(nowTask);
+        }
+        return stream.build();
+    }
 
     @Override
     public ArrayTaskList clone() {
@@ -95,4 +107,6 @@ public class ArrayTaskList extends AbstractTaskList implements Cloneable {
         return "It`s ArrayList includes " + size +
                 " tasks. Last added task is: " + ArrayTask[size -1].getTitle();
     }
+
+
 }
