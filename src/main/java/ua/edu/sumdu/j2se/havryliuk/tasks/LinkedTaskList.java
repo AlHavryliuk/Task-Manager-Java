@@ -1,6 +1,9 @@
 package ua.edu.sumdu.j2se.havryliuk.tasks;
 
 
+
+import java.util.stream.Stream;
+
 public class LinkedTaskList extends AbstractTaskList implements Cloneable {
 
     private Node head;
@@ -80,6 +83,18 @@ public class LinkedTaskList extends AbstractTaskList implements Cloneable {
 
     public ListTypes.types getType() {
         return ListTypes.types.LINKED;
+    }
+
+    @Override
+    public Stream<Task> getStream() {
+        Stream.Builder<Task> stream = Stream.builder();
+        for (Task nowTask : this) {
+            if (nowTask == null) {
+                continue;
+            }
+            stream.add(nowTask);
+        }
+        return stream.build();
     }
 
 

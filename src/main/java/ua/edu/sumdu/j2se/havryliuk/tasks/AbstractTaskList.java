@@ -2,6 +2,7 @@ package ua.edu.sumdu.j2se.havryliuk.tasks;
 
 
 import java.util.*;
+import java.util.stream.Stream;
 
 
 public abstract class AbstractTaskList implements Iterable<Task> {
@@ -11,29 +12,39 @@ public abstract class AbstractTaskList implements Iterable<Task> {
     public Iterator <Task> iterator(){
         return new Itr();
     }
-    public abstract void add (Task task);
-    public abstract boolean remove (Task task);
-    public abstract int size ();
-    public abstract Task getTask (int index) throws IndexOutOfBoundsException;
-    public abstract ListTypes.types getType();
+    protected abstract void add (Task task);
+    protected abstract boolean remove (Task task);
+    protected abstract int size ();
+    protected abstract Task getTask (int index) throws IndexOutOfBoundsException;
+    protected abstract ListTypes.types getType();
+    public abstract Stream <Task> getStream();
 
 
 
 
-    public AbstractTaskList incoming (int from, int to) {
+    public final AbstractTaskList incoming (int from, int to) {
         AbstractTaskList incTask = TaskListFactory.createTaskList(getType());
         {
-            for (int i = 0; i < size(); i++) {
-                if (getTask(i).nextTimeAfter(from) > from
-                    && getTask(i).nextTimeAfter(to) <to)
-                {
-
-                    incTask.add(getTask(i));
-                }
-            }
-            return incTask;
+            Stream <Task> incStream = getStream();
+            incStream.filter(task -> task.nextTimeAfter(from) > from)
+                    .filter(task -> task.nextTimeAfter(to) < to)
+                    .forEach(incTask::add);
         }
+        return incTask;
     }
+
+    /*
+    ----> Realise inComing method without Stream. (TempComment for understand) <----
+
+    for (int i = 0; i < size(); i++) {
+                    if (getTask(i).nextTimeAfter(from) > from
+                        && getTask(i).nextTimeAfter(to) <to)
+                    {
+                        incTask.add(getTask(i));
+                    }
+                }
+                return incTask;
+                */
 
     @Override
     public boolean equals(Object obj) {
@@ -80,6 +91,7 @@ public abstract class AbstractTaskList implements Iterable<Task> {
             cursor = i + 1;
             return next;
         }
+
 
         @Override
         public void remove() {
