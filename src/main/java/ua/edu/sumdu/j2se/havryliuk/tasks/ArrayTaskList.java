@@ -19,14 +19,7 @@ public class ArrayTaskList extends AbstractTaskList implements Cloneable {
 
 
     public void add(Task task) throws NullPointerException {
-
-        if (task == null) {
-            try {
-                throw new NullPointerException();
-            } catch (NullPointerException e) {
-                System.out.println("ERROR. Task can not be empty. ");
-            }
-        }
+        if (task == null) { throw new NullPointerException();}
         if (size == ArrayTask.length) {
             ArrayTask = Arrays.copyOf(ArrayTask, size * 2);
         }
