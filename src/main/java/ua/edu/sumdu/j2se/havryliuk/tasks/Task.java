@@ -2,12 +2,15 @@ package ua.edu.sumdu.j2se.havryliuk.tasks;
 
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+
+
 
 public class Task implements Cloneable, Serializable {
     private String title;
-    private int time;
-    private int start;
-    private int end;
+    private LocalDateTime time;
+    private LocalDateTime start;
+    private LocalDateTime end;
     private int interval;
     private boolean active;
     private boolean repeated;
@@ -16,13 +19,15 @@ public class Task implements Cloneable, Serializable {
 
     /*Конструктор Task(String title, int time), неактивної задачі з відсутністю інтервалу повторення */
 
-    public Task(String title, int time)  {
-        if (title.isEmpty())
-            throw new NullPointerException("String is empty");
+    public Task(String title, LocalDateTime time) throws IllegalArgumentException {
+
         this.title = title;
-        if (time < 0)
-            throw new IllegalArgumentException("Your time smaller then 0");
+        if (title.isEmpty())
+            throw new IllegalArgumentException("String is empty");
         this.time = time;
+        if (this.time == null){
+            throw new IllegalArgumentException();
+        }
         repeated = false;
         active = false;
 
@@ -30,12 +35,16 @@ public class Task implements Cloneable, Serializable {
 
     /*Конструктор Task(... , ... , ... , ...), неактивної задачі яка повторюється і має початок і кінець */
 
-    public Task(String title, int start, int end, int interval) throws IllegalArgumentException {
-        if (title.isEmpty())
-            throw new NullPointerException("String is empty");
+    public Task(String title, LocalDateTime start, LocalDateTime end, int interval) throws IllegalArgumentException {
+
         this.title = title;
+        if (title.isEmpty())
+            throw new IllegalArgumentException("String is empty");
         this.start = start;
         this.end = end;
+        if (this.start == null || this.end == null){
+            throw new IllegalArgumentException();
+        }
         this.interval = interval;
         repeated = true;
         active =false;
@@ -44,16 +53,16 @@ public class Task implements Cloneable, Serializable {
     /* Методи для зчитування та встановлення назви задачі.*/
 
     public String getTitle() {
-
         return title;
     }
 
-    public void setTitle(String title) {
-
+    public void setTitle(String title) throws IllegalArgumentException {
+        if (title.isEmpty())
+            throw new IllegalArgumentException("String is empty");
         this.title = title;
     }
 
-     /*  Методи для зчитування та встановлення стану активності задачі. */
+    /*  Методи для зчитування та встановлення стану активності задачі. */
 
     public boolean isActive() {
 
@@ -67,14 +76,14 @@ public class Task implements Cloneable, Serializable {
 
     /*Методи для зчитування та зміни часу виконання для задач, що НЕ ПОВТОРЮЄТЬСЯ :*/
 
-    public int getTime() {
+    public LocalDateTime getTime() {
         if (repeated) {
             return start;
         }
         return time;
     }
 
-    public void setTime(int time) {
+    public void setTime(LocalDateTime time) {
         if (repeated) {
             repeated = false;
         }
@@ -83,14 +92,14 @@ public class Task implements Cloneable, Serializable {
 
     /*Методи для зчитування та зміни часу виконання для задач, що ПОВТОРЮЄТЬСЯ :*/
 
-    public int getStartTime() {
+    public LocalDateTime getStartTime() {
         if (repeated) {
             return start;
         }
         return time;
     }
 
-    public int getEndTime() {
+    public LocalDateTime getEndTime() {
         if (repeated) {
             return end;
         }
@@ -104,7 +113,7 @@ public class Task implements Cloneable, Serializable {
         return 0;
     }
 
-    public void setTime(int start, int end, int interval) {
+    public void setTime(LocalDateTime start, LocalDateTime end, int interval) {
         if (!repeated) {
             repeated = true;
         }
@@ -117,37 +126,51 @@ public class Task implements Cloneable, Serializable {
         return repeated;
     }
     /* Перевірка часу наступного виконання задачі :*/
-    
-    public int nextTimeAfter(int current) {
 
-        if (current == 0 && !isActive()) {
-            return -1;
-        } else if (current < getStartTime()  && isRepeated()) {
-            return getStartTime();
-        } else if (current < getTime()  && !isRepeated()) {
+    public LocalDateTime nextTimeAfter(LocalDateTime current) {
+
+        if (!isActive()){
+            return null;
+        } if (current.isBefore(getTime())) {
             return getTime();
-        } else if (isRepeated() && current >= getStartTime() && current <= getEndTime()) {
-            if (nextRepeat(current) == current){
-            return nextRepeat(current) + interval;}{
-                return  nextRepeat(current);
-            }
+        } else if (current.isEqual(getTime()) && !isRepeated()) {
+            return null;
+        } else if (current.isEqual(getStartTime())) {
+            return getStartTime().plusSeconds(interval);
+        } else if (current.isBefore(getStartTime())) {
+            return getStartTime();
+        } else if (current.isAfter(getStartTime())
+                && current.isBefore(getEndTime())) {
+            return nextRepeat(current);
         }
-        return -1;
+        return null;
     }
+
 
     /* Допоміжний метод, що містить цикл необхідний для повернення конкретного моменту часу для задачі,
      яка має інтервал повторення :*/
 
-    public  int nextRepeat (int current) {
-        int i;
-        for (i = this.start; i < this.end; i += this.interval) {
-            if (i >= current) {
-                break;
+    public LocalDateTime nextRepeat (LocalDateTime current) {
+
+        LocalDateTime helpTime = getStartTime();
+        LocalDateTime nextInter;
+        for (LocalDateTime i = getStartTime() ; i.isBefore(getEndTime())  ; i = i.plusSeconds(interval)) {
+            helpTime = i;
+            nextInter = helpTime.plusSeconds(interval);
+            if (i.equals(current)) {
+                return helpTime.plusSeconds(interval);
+            }
+            if (current.isEqual(getEndTime().minusSeconds(1))){
+                return helpTime.plusDays(1);
+            }
+            if (i.isBefore(current) && nextInter.isAfter(getEndTime())) {
+                return null;
+            }
+            if (i.isAfter(current)) {
+                return helpTime;
             }
         }
-        if (i<=end) {
-            return i;
-        }else return -1;
+        return helpTime;
     }
 
 

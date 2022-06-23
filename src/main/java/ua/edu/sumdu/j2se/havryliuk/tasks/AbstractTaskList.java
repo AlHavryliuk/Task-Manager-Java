@@ -1,6 +1,7 @@
 package ua.edu.sumdu.j2se.havryliuk.tasks;
 
 
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Stream;
 
@@ -22,29 +23,17 @@ public abstract class AbstractTaskList implements Iterable<Task> {
 
 
 
-    public final AbstractTaskList incoming (int from, int to) {
+    public final AbstractTaskList incoming (LocalDateTime from, LocalDateTime to) {
         AbstractTaskList incTask = TaskListFactory.createTaskList(getType());
         {
             Stream <Task> incStream = getStream();
-            incStream.filter(task -> task.nextTimeAfter(from) > from)
-                    .filter(task -> task.nextTimeAfter(to) < to)
+            incStream.filter(task -> task.nextTimeAfter(from).isAfter(from))
+                    .filter(task -> task.nextTimeAfter(to).isBefore(to))
                     .forEach(incTask::add);
         }
         return incTask;
     }
 
-    /*
-    ----> Realise inComing method without Stream. (TempComment for understand) <----
-
-    for (int i = 0; i < size(); i++) {
-                    if (getTask(i).nextTimeAfter(from) > from
-                        && getTask(i).nextTimeAfter(to) <to)
-                    {
-                        incTask.add(getTask(i));
-                    }
-                }
-                return incTask;
-                */
 
     @Override
     public boolean equals(Object obj) {

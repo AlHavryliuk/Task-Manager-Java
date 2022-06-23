@@ -1,15 +1,15 @@
 package ua.edu.sumdu.j2se.havryliuk.tasks;
 
 
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.time.LocalDateTime;
+import java.util.TimerTask;
 
 public class Main {
 
 	public static void main(String[] args) {
 
 
-		Task TestTask1 = new Task("Sleep", 10);
+		/*Task TestTask1 = new Task("Sleep", 10);
 		Task TestTask2 = new Task("Visiting friends", 50);
 		Task TestTask3 = new Task("Running", 10, 30, 5);
 		Task TestTask4 = new Task("Play football", 10, 20, 2);
@@ -28,9 +28,8 @@ public class Main {
 		Array.add(TestTask4);
 
 		System.out.println(" ARRAY ITERATOR ");
-		Iterator <Task> arrayIter = Array.iterator();
-		while (arrayIter.hasNext()){
-			System.out.println(arrayIter.next());
+		for (Task task : Array) {
+			System.out.println(task);
 		}
 
 		System.out.println(" LINK ITERATOR ");
@@ -42,9 +41,9 @@ public class Main {
 		Link.add(TestTask4);
 
 
-		Iterator<Task> linkIter = Link.iterator();
-		while (linkIter.hasNext()) {
-			System.out.println(linkIter.next());}
+		for (Task task : Link) {
+			System.out.println(task);
+		}
 
 
 
@@ -54,7 +53,37 @@ public class Main {
 		}
 
 		System.out.println("Incoming Array: " + Array.incoming(20, 100).getTask(1).getTitle());
-		System.out.println("Incoming Link: " + Link.incoming(20,100).getTask(1).getTitle());
+		System.out.println("Incoming Link: " + Link.incoming(20,100).getTask(1).getTitle());*/
 
-	}
+
+        /*Task TestTask = new Task("Task title", LocalDateTime.now().plusSeconds(42));
+        System.out.println(TestTask.getTitle());*/
+
+        for (int i = 0; i < 18; i++) {
+
+
+            if (i == 6) {
+                System.out.print("\n");
+            }
+            if (i == 7 || i == 10) {
+                System.out.print("         ");
+                continue;
+            }
+            if (i == 8){
+                System.out.print("  NASTYA");
+                continue;
+            }
+            if (i == 9){
+                System.out.print("   KULAI  ");
+                continue;
+            }
+            if (i == 12) {
+                System.out.print("\n");
+            }
+
+
+            System.out.print("Love you ");
+        }
+
+    }
 }
