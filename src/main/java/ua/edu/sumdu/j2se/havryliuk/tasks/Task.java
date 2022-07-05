@@ -16,7 +16,6 @@
         private boolean repeated;
 
 
-
         /*Конструктор Task(String title, int time), неактивної задачі з відсутністю інтервалу повторення */
 
         public Task(String title, LocalDateTime time) throws IllegalArgumentException {

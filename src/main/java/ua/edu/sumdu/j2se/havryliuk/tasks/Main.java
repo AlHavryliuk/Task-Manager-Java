@@ -10,7 +10,6 @@ public class Main {
 
 	public static void main(String[] args) throws IOException {
 
-
         Task TestTask  = new Task("Task 1", LocalDateTime.now().plusSeconds(0));
         Task TestTask1 = new Task("Task 2", LocalDateTime.now().plusSeconds(0));
         Task TestTask2 = new Task("Task 3", LocalDateTime.now().plusSeconds(0));
