@@ -1,68 +1,154 @@
 package ua.edu.sumdu.j2se.havryliuk.tasks;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Scanner;
 
-
-import static ua.edu.sumdu.j2se.havryliuk.tasks.SupportClass.*;
-
+import static ua.edu.sumdu.j2se.havryliuk.tasks.SupportClass.scannerSwitch;
 
 public class Adapter {
 
+    Scanner altMethod = new Scanner(System.in);
 
-    public static LocalDateTime adapter (String time) {
+    public static Task adapterAllTime () {
+        System.out.println(" Enter name of the task ");
+        String name = scannerSwitch.nextLine();
+        LocalDateTime start = adapterStart();
+        LocalDateTime end = adapterEnd();
+        if (end.isBefore(start)) {
+            System.out.println(" Incorrect date. ");
+            return adapterAllTime();
+        }
+        System.out.println(" What about interval ?");
+        int interval = inputNumMInterval();
+        interval = interval * 120;
+        return new Task(name,start,end,interval);
+    }
 
-        String[] parts = time.split(" ");
-        int mount =LocalDateTime.now().getMonthValue(); /*= Integer.parseInt(parts[0]);*/
-        int day = Integer.parseInt(parts[0]);
-        int hour = Integer.parseInt(parts[1]);
-        int minutes = Integer.parseInt(parts[2]);
+
+    public static LocalDateTime adapterStart () {
+        System.out.println(" Start Mount : ");
+        int mount = inputNumMount();
+        System.out.println(" Start Day : ");
+        int day = inputNumDay();
+        System.out.println(" Start Hours: ");
+        int hoursStart = inputNumHours();
+        System.out.println(" Start Minutes : ");
+        int minutesStart = inputNumMinutes();
+        LocalDateTime time = LocalDateTime.of(LocalDateTime.now().getYear(), mount, day,
+                hoursStart, minutesStart, LocalDateTime.now().getSecond());
+        return time;
+    }
+    public static LocalDateTime adapterEnd () {
+        System.out.println(" End Mount : ");
+        int mount = inputNumMount();
+        System.out.println(" End Day : ");
+        int day = inputNumDay();
+        System.out.println(" End Hours: ");
+        int hoursStart = inputNumHours();
+        System.out.println(" End Minutes : ");
+        int minutesStart = inputNumMinutes();
+        LocalDateTime time = LocalDateTime.of(LocalDateTime.now().getYear(), mount, day,
+                hoursStart, minutesStart, LocalDateTime.now().getSecond());
+        return time;
+    }
 
 
+    public static LocalDateTime adapterTime () {
+        int mount = LocalDateTime.now().getMonthValue();
+        System.out.println("Day : ");
+        int day = inputNumDay();
         if (day < LocalDateTime.now().getDayOfMonth()) {
-            mount += 1;
-            System.out.println(" Task moved to next month.\n ");
+            mount++;
         }
-        LocalDateTime parseDate = LocalDateTime.of(LocalDateTime.now().getYear(), mount, day,
-                hour, minutes, LocalDateTime.now().getSecond());
-
-        return parseDate;
+        System.out.println("Hours : ");
+        int hours = inputNumHours();
+        System.out.println("Minutes : ");
+        int minutes = inputNumMinutes();
+        LocalDateTime time = LocalDateTime.of(LocalDateTime.now().getYear(), mount, day,
+                hours, minutes, LocalDateTime.now().getSecond());
+        return time;
     }
 
-    public static LocalDateTime adapterCalendar (String time) {
+    public static Task adapterLogicNoAlt () {
 
-        String[] parts = time.split(" ");
-        int mount =Integer.parseInt(parts[0]);; /*= Integer.parseInt(parts[0]);*/
-        int day = Integer.parseInt(parts[1]);
-        int hour = Integer.parseInt(parts[2]);
-        int minutes = Integer.parseInt(parts[3]);
+        System.out.println(" Enter the name of the task ");
+        String nameOfTask = scannerSwitch.nextLine();
+        int mount = LocalDateTime.now().getMonthValue();
+        System.out.println("Day : ");
+        int day = inputNumDay();
+        if (day < LocalDateTime.now().getDayOfMonth()) {
+            mount++;
+        }
+        System.out.println("Hours : ");
+        int hours = inputNumHours();
+        System.out.println("Minutes : ");
+        int minutes = inputNumMinutes();
+        LocalDateTime time = LocalDateTime.of(LocalDateTime.now().getYear(), mount, day,
+                hours, minutes, LocalDateTime.now().getSecond());
+        Task task = new Task(nameOfTask, time);
+        System.out.println(" Create new Task is Successful \n");
+        return task;
 
-        LocalDateTime parseDate = LocalDateTime.of(LocalDateTime.now().getYear(), mount, day,
-                hour, minutes, LocalDateTime.now().getSecond());
-
-        return parseDate;
+    }
+    public static int inputNumMount () {
+        while (true) {
+            Scanner in = new Scanner(System.in);
+            if (in.hasNextInt()) {
+                int mount = in.nextInt();
+                if (mount > 0 & mount < 13) {
+                    return mount;
+                }
+            }
+            System.out.println("Error, input correct int-value of mount!");
+        }
+    }
+    public static int inputNumDay () {
+        while (true) {
+            Scanner in = new Scanner(System.in);
+            if (in.hasNextInt()) {
+                int numberDay = in.nextInt();
+                if (numberDay > 0 & numberDay <= LocalDateTime.MAX.getDayOfMonth()) {
+                    return numberDay;
+                }
+            }
+            System.out.println("Error, input correct int-value of days!");
+        }
+    }
+    public static int inputNumHours () {
+        while (true) {
+            Scanner in = new Scanner(System.in);
+            if (in.hasNextInt()) {
+                int numberHours = in.nextInt();
+                if (numberHours >= 0 & numberHours < 24) {
+                    return numberHours;
+                }
+            }
+            System.out.println("Error, input correct int-value of hours!");
+        }
     }
 
-    public static void adapterCalendarTime (String time) throws IOException {
-
-        String[] logic = time.split(" ");
-
-        int day = Integer.parseInt(logic[0]);
-        if ((day <= 0 | day > 31)) {
-            System.out.println(" Incorrectly format. Please, try again. ");
-            calendar();
-            return;
+    public static int inputNumMinutes () {
+        while (true) {
+            Scanner in = new Scanner(System.in);
+            if (in.hasNextInt()) {
+                int numberMinutes = in.nextInt();
+                if (numberMinutes >= 0 & numberMinutes < 60) {
+                    return numberMinutes;
+                }
+            }
+            System.out.println("Error, input correct  int-value of minutes!");
         }
-        int hour = Integer.parseInt(logic[1]);
-        if ((hour < 0 | hour > 23)) {
-            System.out.println(" Incorrectly format. Please, try again. ");
-            calendar();
-            return;
-        }
-        int minutes = Integer.parseInt(logic[2]);
-        if ((minutes < 0 | minutes > 59)) {
-            System.out.println(" Incorrectly format. Please, try again. ");
-            calendar();
+    }
+    public static int inputNumMInterval () {
+        while (true) {
+            Scanner in = new Scanner(System.in);
+            if (in.hasNextInt()) {
+                int interval = in.nextInt();
+                if (interval > 0 ) {
+                    return interval;
+                }
+            }
+            System.out.println("Error, input correct int-value of minutes!");
         }
     }
 }

@@ -8,8 +8,6 @@ import java.time.LocalDateTime;
 import java.util.Scanner;
 
 import static ua.edu.sumdu.j2se.havryliuk.tasks.Adapter.*;
-import static ua.edu.sumdu.j2se.havryliuk.tasks.AltAdapter.adapterAllTime;
-import static ua.edu.sumdu.j2se.havryliuk.tasks.AltAdapter.adapterLogicNoAlt;
 
 
 public class SupportClass {
@@ -65,35 +63,32 @@ public class SupportClass {
             array.getTask(scNumber).setTitle(name);
             if (array.getTask(scNumber).isRepeated()){
                 System.out.println(" Write new Start time ");
-                String start = editScanner.nextLine();
+                LocalDateTime start = adapterStart();
                 System.out.println(" Write new End time ");
-                String end = editScanner.nextLine();
+                LocalDateTime end = adapterEnd();
                 System.out.println(" Write new Interval ");
-                LocalDateTime adapterStart = adapter(start);
-                LocalDateTime adapterEnd = adapter(end);
                 int interval = editScanner.nextInt();
                 interval = interval * 60 * 60;
-                array.getTask(scNumber).setTime(adapterStart,adapterEnd,interval);
+                array.getTask(scNumber).setTime(start,end,interval);
+                mainSwitch(array);
+                System.out.println(" Successful !!!");
             }
             System.out.println(" Write new Time ");
-            String time = editScanner.nextLine();
-            LocalDateTime adapterTime = adapter(time);
-            array.getTask(scNumber).setTime(adapterTime);
+            LocalDateTime time = adapterTime();
+            array.getTask(scNumber).setTime(time);
+            System.out.println(" Successful !!!");
         } else {
             mainSwitch(array);
         }
     }
-    public static void calendar () throws IOException {
+    public static void calendar () {
 
-        Scanner calendarScan = new Scanner(System.in);
         System.out.println(" Please, Enter start time ( Mount day hour minutes )");
-        String start = calendarScan.nextLine();
-        adapterCalendarTime(start);
-        LocalDateTime adapterStart = adapterCalendar(start);
+
+        LocalDateTime adapterStart = adapterStart();
         System.out.println(" Please, Enter end time ( Mount day hour minutes )");
-        String end = calendarScan.nextLine();
-        adapterCalendarTime(end);
-        LocalDateTime adapterEnd = adapterCalendar(end);
+
+        LocalDateTime adapterEnd = adapterEnd();
         if (adapterStart.isAfter(adapterEnd)) {
             System.out.println(" Date of start is bigger than date of end ");
             calendar();
