@@ -14,18 +14,19 @@ public class ArrayTaskList extends AbstractTaskList implements Cloneable {
 
 
     public ArrayTaskList() {
-        ArrayTask = new Task[5];
+        ArrayTask = new Task[0];
     }
 
 
     public void add(Task task) throws NullPointerException {
         if (task == null) { throw new NullPointerException();}
         if (size == ArrayTask.length) {
-            ArrayTask = Arrays.copyOf(ArrayTask, size * 2);
+            ArrayTask = Arrays.copyOf(ArrayTask, size + 1);
         }
         ArrayTask[size] = task;
         size++;
     }
+
 
 
     public boolean remove(Task task) {
@@ -59,9 +60,38 @@ public class ArrayTaskList extends AbstractTaskList implements Cloneable {
         return ArrayTask[index];
     }
 
+    public void getTaskAll() {
+
+        for (int i = 0; i < ArrayTask.length; i++) {
+            System.out.println(" Task " + i + ". " + ArrayTask[i]);
+        }
+    }
+
+
 
     public ListTypes.types getType() {
         return ListTypes.types.ARRAY;
+    }
+
+    public void Optimization (){
+        int count = 0;
+
+        for (int i = 0; i < size; i++) {
+            if (!(ArrayTask[i].equals(null))) {
+                count++;
+            }
+        }
+        Task[] temp = new Task[count];
+        int indexTemp = 0;
+        for (int i = 0; i < size; i++) {
+            if (ArrayTask[i].equals(null)) {
+                continue;
+            }
+            temp[indexTemp] = ArrayTask[i];
+            indexTemp++;
+        }
+        ArrayTask = Arrays.copyOf(temp, count);
+        size = count;
     }
 
     @Override
@@ -100,6 +130,8 @@ public class ArrayTaskList extends AbstractTaskList implements Cloneable {
         return "It`s ArrayList includes " + size +
                 " tasks. Last added task is: " + ArrayTask[size -1].getTitle();
     }
+
+
 
 
 }

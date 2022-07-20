@@ -5,7 +5,6 @@
     import java.time.LocalDateTime;
 
 
-
     public class Task implements Cloneable, Serializable {
         private String title;
         private LocalDateTime time;
@@ -22,7 +21,7 @@
 
             this.title = title;
             if (title.isEmpty())
-                throw new IllegalArgumentException("String is empty");
+                throw new IllegalArgumentException(" String is empty ");
             this.time = time;
             if (this.time == null){
                 throw new IllegalArgumentException();
@@ -172,6 +171,10 @@
             return helpTime;
         }
 
+        public boolean turnIsActiveTrue(){
+            return active = true;
+        }
+
 
         @Override
         public boolean equals(Object obj) {
@@ -194,10 +197,13 @@
 
         @Override
         public String toString() {
-            if(!this.repeated) return " Task : " + this.getTitle() + "\n Time : " + getTime() + "\n";
-            return " Task : " + this.getTitle() + "\n Start time : "
-                    + getStartTime() + "\n end time : " + getEndTime() +
-                    "\n interval: "+ getRepeatInterval() + "\n";
+            if(!this.repeated) return " Task : " + this.getTitle() + "\n Time : " + getTime().getMonth() + " " +
+                    getTime().getDayOfMonth() +  " day " + getTime().getHour() + " hours " + getTime().getMinute() + " minutes  \n";
+            return " Task : " + this.getTitle() + "\n Start time :"
+                    + getStartTime().getMonth() + " " + getStartTime().getDayOfMonth() + " day " +
+                    getStartTime().getHour() + " hours "+ getStartTime().getMinute() + " minutes " +  "\n End time : " +
+                    getEndTime().getMonth() + " " + getEndTime().getDayOfMonth() + " day " + getEndTime().getHour() + " hours " +
+                    getEndTime().getMinute() + " minutes " + "\n interval: "+ getRepeatInterval() / 120 + " hours " + "\n";
         }
         @Override
         public Task clone() throws CloneNotSupportedException {
@@ -211,4 +217,7 @@
             clone.repeated = this.repeated;
             return clone;
         }
+
+
+
     }

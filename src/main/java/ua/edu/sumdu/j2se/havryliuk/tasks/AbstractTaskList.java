@@ -77,7 +77,7 @@ public abstract class AbstractTaskList implements Iterable<Task> , Serializable 
                 throw new NoSuchElementException("Can`t found next task");
             }
             Task next = getTask(i);
-            lastCurs =i;
+            lastCurs = i;
             cursor = i + 1;
             return next;
         }

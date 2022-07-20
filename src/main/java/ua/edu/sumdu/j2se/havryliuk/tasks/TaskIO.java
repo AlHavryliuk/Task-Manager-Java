@@ -63,7 +63,7 @@ public class TaskIO {
                 tasks.add(task);
             }
         } catch (IOException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
+            System.out.println(" Cannot find existing list. The program will create a new one. ");;
         }
     }
 
