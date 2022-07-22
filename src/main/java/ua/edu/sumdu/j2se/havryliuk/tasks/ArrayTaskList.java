@@ -60,14 +60,12 @@ public class ArrayTaskList extends AbstractTaskList implements Cloneable {
         return ArrayTask[index];
     }
 
-    public void getTaskAll() {
+    public void printTaskAll() {
 
         for (int i = 0; i < ArrayTask.length; i++) {
             System.out.println(" Task " + i + ". " + ArrayTask[i]);
         }
     }
-
-
 
     public ListTypes.types getType() {
         return ListTypes.types.ARRAY;

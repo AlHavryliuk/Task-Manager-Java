@@ -14,10 +14,10 @@ public abstract class AbstractTaskList implements Iterable<Task> , Serializable 
     public Iterator <Task> iterator(){
         return new Itr();
     }
-    protected abstract void add (Task task);
-    protected abstract boolean remove (Task task);
-    protected abstract int size ();
-    protected abstract Task getTask (int index) throws IndexOutOfBoundsException;
+    public abstract void add(Task task);
+    public abstract boolean remove(Task task);
+    public abstract int size ();
+    public abstract Task getTask(int index) throws IndexOutOfBoundsException;
     protected abstract ListTypes.types getType();
     public abstract Stream <Task> getStream();
 
@@ -98,4 +98,5 @@ public abstract class AbstractTaskList implements Iterable<Task> , Serializable 
             }
         }
     }
+
 }

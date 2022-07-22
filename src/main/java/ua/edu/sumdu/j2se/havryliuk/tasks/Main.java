@@ -1,20 +1,15 @@
 package ua.edu.sumdu.j2se.havryliuk.tasks;
 
+import ua.edu.sumdu.j2se.havryliuk.tasks.controller.iml.MainController;
+
 import java.io.IOException;
 
 
-import static ua.edu.sumdu.j2se.havryliuk.tasks.MainMenuView.mainMenu;
 
 public class Main {
 
-    public static Notificator notificator;
-
     public static void main(String[] args) throws IOException {
-
-        notificator = new Notificator();
-        notificator.start();
-
-        new MainMenuView();
-        mainMenu();
+        MainController mainController = new MainController();
+        mainController.execute();
     }
 }

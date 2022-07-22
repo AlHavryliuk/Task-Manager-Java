@@ -1,12 +1,11 @@
-package ua.edu.sumdu.j2se.havryliuk.tasks;
+package ua.edu.sumdu.j2se.havryliuk.tasks.view;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
-import static ua.edu.sumdu.j2se.havryliuk.tasks.MainMenuView.mainMenu;
 
-public class ControllerCorrector {
+public class ViewCorrector {
     public static int inputNum () {
         while (true) {
             Scanner in = new Scanner(System.in);
@@ -98,7 +97,6 @@ public class ControllerCorrector {
             if (in.hasNextInt()) {
                 int number = in.nextInt();
                 if (number >= 0) {
-                    mainMenu();
                 }
             }
             System.out.println("Error, input int-value!");
