@@ -1,7 +1,6 @@
 package ua.edu.sumdu.j2se.havryliuk.tasks;
 
 
-
 import java.util.stream.Stream;
 
 public class LinkedTaskList extends AbstractTaskList implements Cloneable {

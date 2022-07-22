@@ -3,7 +3,7 @@ package ua.edu.sumdu.j2se.havryliuk.tasks;
 import java.time.LocalDateTime;
 
 
-import static ua.edu.sumdu.j2se.havryliuk.tasks.SupportClass.array;
+import static ua.edu.sumdu.j2se.havryliuk.tasks.MainMenuView.array;
 
 
 public class Notificator extends Thread {

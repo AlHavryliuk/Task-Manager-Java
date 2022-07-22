@@ -73,7 +73,7 @@ public class ArrayTaskList extends AbstractTaskList implements Cloneable {
         return ListTypes.types.ARRAY;
     }
 
-    public void Optimization (){
+    public void optimization (){
         int count = 0;
 
         for (int i = 0; i < size; i++) {
