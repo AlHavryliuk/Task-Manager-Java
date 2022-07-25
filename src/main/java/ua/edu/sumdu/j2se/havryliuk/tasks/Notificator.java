@@ -2,18 +2,15 @@ package ua.edu.sumdu.j2se.havryliuk.tasks;
 
 import java.time.LocalDateTime;
 
+public class Notificator implements Runnable {
+    private AbstractTaskList abstractTaskList;
+    public Notificator(AbstractTaskList abstractTaskList) {
+        this.abstractTaskList = abstractTaskList;
+    }
 
-import static ua.edu.sumdu.j2se.havryliuk.tasks.MainMenuView.array;
-
-
-public class Notificator extends Thread {
-
-
-    @Override
-    public void run() {
-
+    public void run () {
         while (true) {
-            for (Task task : array) {
+            for (Task task : abstractTaskList) {
                 if (task.getStartTime().isBefore(LocalDateTime.now().plusMinutes(10)) & task.getStartTime().isAfter(LocalDateTime.now())|
                         task.getTime().isBefore(LocalDateTime.now().plusMinutes(10)) & task.getTime().isAfter(LocalDateTime.now())) {
                     if (task.isRepeated()) {
