@@ -8,6 +8,8 @@ import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import static ua.edu.sumdu.j2se.havryliuk.tasks.controller.iml.MainController.logger;
+
 
 public class TaskIO {
 
@@ -30,6 +32,7 @@ public class TaskIO {
                 }
             }
         } catch (IOException e) {
+            logger.error("Serialization isn`t successful.", e);
             throw new RuntimeException(e);
         }
     }
@@ -63,6 +66,7 @@ public class TaskIO {
                 tasks.add(task);
             }
         } catch (IOException | ClassNotFoundException e) {
+            logger.error("Deserialization isn`t successful", e);
             System.out.println(" Cannot find existing list. The program will create a new one. ");;
         }
     }
@@ -71,6 +75,7 @@ public class TaskIO {
         try (BufferedOutputStream bos = new BufferedOutputStream((new FileOutputStream(file)))){
             write(tasks, bos);
         } catch (IOException e) {
+            logger.error("Error with binary Serialization.", e);
             e.printStackTrace();
         }
     }
@@ -79,8 +84,7 @@ public class TaskIO {
     public static void readBinary (AbstractTaskList tasks, File file){
         try (BufferedInputStream bis = new BufferedInputStream((new FileInputStream(file)))){
             read(tasks, bis);
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException ignored) {
         }
     }
 
@@ -108,6 +112,7 @@ public class TaskIO {
             jsonWriter.endArray();
             jsonWriter.endObject();
         } catch (IOException e) {
+            logger.error("Error with JSON Serialization.", e);
             throw new RuntimeException(e);
         }
     }
@@ -149,7 +154,6 @@ public class TaskIO {
     public static void readText (AbstractTaskList tasks, File file) throws IOException {
         try (FileReader fileReader = new FileReader(file)) {
             read (tasks, fileReader);
-
         }
     }
     private static final DateTimeFormatter dtf = DateTimeFormatter.ofPattern("d::MMM::uuuu HH::mm::ss");

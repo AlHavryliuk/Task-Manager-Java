@@ -2,6 +2,8 @@ package ua.edu.sumdu.j2se.havryliuk.tasks;
 
 import java.time.LocalDateTime;
 
+import static ua.edu.sumdu.j2se.havryliuk.tasks.controller.iml.MainController.logger;
+
 public class Notificator implements Runnable {
     private AbstractTaskList abstractTaskList;
     public Notificator(AbstractTaskList abstractTaskList) {
@@ -25,6 +27,7 @@ public class Notificator implements Runnable {
             try {
                 Thread.sleep(60000);
             } catch (InterruptedException e) {
+                logger.error("Notificator error.", e);
                 throw new RuntimeException(e);
             }
         }

@@ -5,6 +5,8 @@ package ua.edu.sumdu.j2se.havryliuk.tasks;
 import java.util.*;
 import java.util.stream.Stream;
 
+import static ua.edu.sumdu.j2se.havryliuk.tasks.controller.iml.MainController.logger;
+
 
 public class ArrayTaskList extends AbstractTaskList implements Cloneable {
 
@@ -111,6 +113,7 @@ public class ArrayTaskList extends AbstractTaskList implements Cloneable {
             clone.ArrayTask = Arrays.copyOf(ArrayTask, size);
             return clone;
         } catch (CloneNotSupportedException e) {
+            logger.error("Clone isn`t successful.", e);
             throw new AssertionError();
         }
     }

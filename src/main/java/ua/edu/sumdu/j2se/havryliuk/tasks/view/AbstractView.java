@@ -1,15 +1,15 @@
 package ua.edu.sumdu.j2se.havryliuk.tasks.view;
 
 
+import ua.edu.sumdu.j2se.havryliuk.tasks.view.impl.ViewCorrector;
+
 import java.util.Scanner;
 
-import static ua.edu.sumdu.j2se.havryliuk.tasks.view.ViewCorrector.*;
-
-public abstract class AbstractView implements View {
+public abstract class AbstractView extends ViewCorrector implements View {
 
     static Scanner scanner = new Scanner(System.in);
 
-    public String requestDataFromUser(String date) {
+    public String requestStringDate(String date) {
         System.out.println(date);
         return inputString();
     }

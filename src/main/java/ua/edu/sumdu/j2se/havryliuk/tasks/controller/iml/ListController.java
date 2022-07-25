@@ -3,7 +3,7 @@ package ua.edu.sumdu.j2se.havryliuk.tasks.controller.iml;
 import ua.edu.sumdu.j2se.havryliuk.tasks.AbstractTaskList;
 import ua.edu.sumdu.j2se.havryliuk.tasks.controller.Controller;
 
-import ua.edu.sumdu.j2se.havryliuk.tasks.view.ListView;
+import ua.edu.sumdu.j2se.havryliuk.tasks.view.impl.ListView;
 import ua.edu.sumdu.j2se.havryliuk.tasks.view.View;
 
 

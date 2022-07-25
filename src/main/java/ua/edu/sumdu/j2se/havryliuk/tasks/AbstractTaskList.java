@@ -6,6 +6,8 @@ import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Stream;
 
+import static ua.edu.sumdu.j2se.havryliuk.tasks.controller.iml.MainController.logger;
+
 
 public abstract class AbstractTaskList implements Iterable<Task> , Serializable {
 
@@ -94,6 +96,7 @@ public abstract class AbstractTaskList implements Iterable<Task> , Serializable 
                     cursor--;
                 lastCurs = -1;
             } catch (IndexOutOfBoundsException e) {
+                logger.error("Index is too big", e);
                 throw new ConcurrentModificationException();
             }
         }

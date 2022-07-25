@@ -1,15 +1,15 @@
-package ua.edu.sumdu.j2se.havryliuk.tasks.view;
+package ua.edu.sumdu.j2se.havryliuk.tasks.view.impl;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
 
 public class ViewCorrector {
-    public static int inputNum () {
+    public int inputNum () {
         while (true) {
             Scanner in = new Scanner(System.in);
             if (in.hasNextInt()) {
+                //todo remove in.nextInt();
                 int number = in.nextInt();
                 return number;
             }
@@ -28,7 +28,7 @@ public class ViewCorrector {
             System.out.println("Error, input correct int-value of mount!");
         }
     }
-    public static int inputNumDay () {
+    public int inputNumDay () {
         while (true) {
             Scanner in = new Scanner(System.in);
             if (in.hasNextInt()) {
@@ -40,7 +40,7 @@ public class ViewCorrector {
             System.out.println("Error, input correct int-value of days!");
         }
     }
-    public static int inputNumHours () {
+    public int inputNumHours () {
         while (true) {
             Scanner in = new Scanner(System.in);
             if (in.hasNextInt()) {
@@ -53,7 +53,7 @@ public class ViewCorrector {
         }
     }
 
-    public static int inputNumMinutes () {
+    public int inputNumMinutes () {
         while (true) {
             Scanner in = new Scanner(System.in);
             if (in.hasNextInt()) {
@@ -65,7 +65,7 @@ public class ViewCorrector {
             System.out.println("Error, input correct  int-value of minutes!");
         }
     }
-    public static int inputNumMInterval () {
+    public int inputNumMInterval () {
         while (true) {
             Scanner in = new Scanner(System.in);
             if (in.hasNextInt()) {
@@ -77,7 +77,8 @@ public class ViewCorrector {
             System.out.println("Error, input correct int-value of minutes!");
         }
     }
-    public static String inputString () {
+
+    public String inputString () {
         while (true) {
             Scanner in = new Scanner(System.in);
             if (in.hasNextLine()) {
@@ -87,19 +88,6 @@ public class ViewCorrector {
                 }
             }
             System.out.println("Error, input correct String - value!");
-        }
-    }
-
-    public static int inputBack () throws IOException {
-        System.out.println(" Write any number for continue. ");
-        while (true) {
-            Scanner in = new Scanner(System.in);
-            if (in.hasNextInt()) {
-                int number = in.nextInt();
-                if (number >= 0) {
-                }
-            }
-            System.out.println("Error, input int-value!");
         }
     }
 }

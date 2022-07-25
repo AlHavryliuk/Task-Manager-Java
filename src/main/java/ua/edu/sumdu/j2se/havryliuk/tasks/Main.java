@@ -2,14 +2,14 @@ package ua.edu.sumdu.j2se.havryliuk.tasks;
 
 import ua.edu.sumdu.j2se.havryliuk.tasks.controller.iml.MainController;
 
-import java.io.IOException;
-
-
 
 public class Main {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         MainController mainController = new MainController();
-        mainController.execute();
+
+        mainController.runApp();
+
+
     }
 }
