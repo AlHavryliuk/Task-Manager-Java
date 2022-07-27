@@ -17,10 +17,10 @@ public class IncomeController extends TimeUtility implements Controller {
     public void execute(AbstractTaskList abstractTaskList) {
         view.printCustomInfo(" Please, Enter start time ( Mount day hour minutes )");
 
-        LocalDateTime adapterStart = adapterStart();
+        LocalDateTime adapterStart = alternativeTimeProcessing() /*adapterStart()*/;
         view.printCustomInfo(" Please, Enter end time ( Mount day hour minutes )");
 
-        LocalDateTime adapterEnd = adapterEnd();
+        LocalDateTime adapterEnd = alternativeTimeProcessing() /*adapterEnd()*/;
         if (adapterStart.isAfter(adapterEnd)) {
             System.out.println(" Date of start is bigger than date of end ");
             execute(abstractTaskList);

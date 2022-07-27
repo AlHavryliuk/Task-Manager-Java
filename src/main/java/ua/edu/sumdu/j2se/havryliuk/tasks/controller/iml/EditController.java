@@ -28,9 +28,9 @@ public class EditController extends TimeUtility implements Controller {
             abstractTaskList.getTask(scNumber).setTitle(name);
             if (abstractTaskList.getTask(scNumber).isRepeated()){
                 view.printCustomInfo(" Write new Start time ");
-                LocalDateTime start = adapterStart();
+                LocalDateTime start = alternativeTimeProcessing() /*adapterStart()*/;
                 view.printCustomInfo(" Write new End time ");
-                LocalDateTime end = adapterEnd();
+                LocalDateTime end = alternativeTimeProcessing() /*adapterEnd()*/;
                 view.printCustomInfo(" Write new Interval ");
                 int interval = view.requestIntInterval(" ");
                 interval = interval * 60 * 60;
@@ -38,7 +38,7 @@ public class EditController extends TimeUtility implements Controller {
                 view.printCustomInfo(" Successful !!!");
             }
             view.printCustomInfo(" Write new Time ");
-            LocalDateTime time = adapterTime();
+            LocalDateTime time = alternativeTimeProcessing() /*adapterTime()*/;
             abstractTaskList.getTask(scNumber).setTime(time);
             view.printCustomInfo(" Successful !!!");
         }

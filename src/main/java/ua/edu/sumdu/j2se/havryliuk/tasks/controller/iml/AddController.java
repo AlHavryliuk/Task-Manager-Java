@@ -37,8 +37,10 @@ public class AddController extends TimeUtility implements Controller {
 
     public void adapterAllTime(AbstractTaskList abstractTaskList) {
         String nameOfTask = view.requestStringDate(" Enter name of the task : ");
-        LocalDateTime start = adapterStart();
-        LocalDateTime end = adapterEnd();
+        view.printCustomInfo(" Start time :");
+        LocalDateTime start = alternativeTimeProcessing() /*adapterStart()*/;
+        view.printCustomInfo(" End time :");
+        LocalDateTime end = alternativeTimeProcessing() /*adapterEnd()*/;
         if (end.isBefore(start)) {
             view.printCustomInfo(" Incorrect date. ");
             adapterAllTime(abstractTaskList);
@@ -54,7 +56,8 @@ public class AddController extends TimeUtility implements Controller {
     public void adapterNoRepeat(AbstractTaskList abstractTaskList) {
 
         String nameOfTask = view.requestStringDate(" Enter the name of the task: ");
-        int mount = LocalDateTime.now().getMonthValue();
+        LocalDateTime time = alternativeTimeProcessing();
+        /*int mount = LocalDateTime.now().getMonthValue();
         int day = view.requestIntDay(" Enter day: ");
         if (day < LocalDateTime.now().getDayOfMonth()) {
             mount++;
@@ -63,7 +66,7 @@ public class AddController extends TimeUtility implements Controller {
         int hours = view.requestIntHour(" Enter hours: ");
         int minutes = view.requestIntMinute(" Enter minutes: ");
         LocalDateTime time = LocalDateTime.of(LocalDateTime.now().getYear(), mount, day,
-                hours, minutes, LocalDateTime.now().getSecond());
+                hours, minutes, LocalDateTime.now().getSecond());*/
         view.printCustomInfo(" Create new Task is Successful. \n");
         Task task = new Task (nameOfTask, time);
         abstractTaskList.add(task);

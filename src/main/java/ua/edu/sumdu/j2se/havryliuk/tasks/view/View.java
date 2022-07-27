@@ -10,10 +10,10 @@ public interface View {
 
     String requestStringDate (String date);
     int requestIntInterval(String date);
-    int requestIntMount (String date);
+    /*int requestIntMount (String date);
     int requestIntDay (String date);
     int requestIntHour (String date);
-    int requestIntMinute (String date);
+    int requestIntMinute (String date);*/
     void printCustomInfo (String info);
 
 }
