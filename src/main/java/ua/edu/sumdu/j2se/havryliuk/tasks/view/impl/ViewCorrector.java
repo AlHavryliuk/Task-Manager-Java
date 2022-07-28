@@ -1,5 +1,7 @@
 package ua.edu.sumdu.j2se.havryliuk.tasks.view.impl;
 
+import ua.edu.sumdu.j2se.havryliuk.tasks.myexeptions.IncorrectIntervalEnteredException;
+
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
@@ -65,7 +67,7 @@ public class ViewCorrector {
             System.out.println("Error, input correct  int-value of minutes!");
         }
     }
-    public int inputNumMInterval () {
+    /*public int inputNumMInterval () {
         while (true) {
             Scanner in = new Scanner(System.in);
             if (in.hasNextInt()) {
@@ -75,6 +77,20 @@ public class ViewCorrector {
                 }
             }
             System.out.println("Error, input correct int-value of minutes!");
+        }
+    }*/
+    public int inputNumMInterval () throws IncorrectIntervalEnteredException {
+        while (true) {
+            Scanner in = new Scanner(System.in);
+            if (in.hasNextInt()) {
+                int interval = in.nextInt();
+                if (interval > 0 )  {
+                    return interval;
+                } else {
+                    throw new IncorrectIntervalEnteredException(" Incorrect interval ");
+                }
+            }
+            System.out.println(" Error, input correct int-value of minutes! ");
         }
     }
 
